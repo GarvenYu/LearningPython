@@ -2,10 +2,10 @@ from urllib import request, parse
 
 print('Login to weibo.cn...')
 email = input('Email: ')
-passwd = input('Password: ')
+password = input('Password: ')
 login_data = parse.urlencode([
     ('username', email),
-    ('password', passwd),
+    ('password', password),
     ('entry', 'mweibo'),
     ('client_id', ''),
     ('savestate', '1'),

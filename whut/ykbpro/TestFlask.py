@@ -25,5 +25,12 @@ def log_in():
     return '<h3>Bad username or password.</h3>'
 
 
+@app.route('/signInUser', methods=['GET'])
+def sign_in_user():
+    if request.args.get('me', '') == 'me':
+        return '<h3>Hello, me!</h3>'
+    return '<h3>nothing!</h3>'
+
+
 if __name__ == '__main__':
     app.run()
