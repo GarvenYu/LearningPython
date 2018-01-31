@@ -53,7 +53,7 @@ def extract_html_info(html, mylist):
                 break
 
 
-def print_info_list(mylist, num=20):
+def print_info_list(mylist, num=30):
     """
     打印爬取信息
     :param mylist: 存储排名信息
