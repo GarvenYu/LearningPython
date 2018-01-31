@@ -34,17 +34,35 @@ def extract_html_info(html, mylist):
     :return: list
     """
     soup = BeautifulSoup(html, 'html.parser')
-    info_list = soup.find_all(name='table')
-    print(info_list)
+    tr_tag = soup.tr
+    th_list = []
+    for tag in tr_tag.children:
+        if tag.string != '\n':
+            th_list.append(tag.string)
+        if len(th_list) == 4:
+            break
+    mylist.append(th_list)  # 排名的title
+    tr_list = soup.tbody.find_all('tr')  # 抓取tbody下所有的tr
+    for tr in tr_list:
+        data_list = []
+        for td in tr.children:  # 遍历tr的子节点，取出前四个值
+            if td.string != '\n':
+                data_list.append(td.string)
+            if len(data_list) == 4:
+                mylist.append(data_list)
+                break
 
 
 def print_info_list(mylist, num=20):
     """
-    打印
-    :param mylist:
-    :return:
+    打印爬取信息
+    :param mylist: 存储排名信息
+    :param num: 打印数量
+    :return: None
     """
-    pass
+    print(mylist[0])
+    for i in range(num):
+        print(mylist[i+1])
 
 
 def main():
