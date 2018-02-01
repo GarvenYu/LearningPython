@@ -60,9 +60,10 @@ def print_info_list(mylist, num=30):
     :param num: 打印数量
     :return: None
     """
-    print(mylist[0])
+    template = '{0:^10}\t{1:{4}^10}\t{2:^10}\t{3:^10}'
+    print(template.format(mylist[0][0], mylist[0][1], mylist[0][2], mylist[0][3], chr(12288)))
     for i in range(num):
-        print(mylist[i+1])
+        print(template.format(mylist[i+1][0], mylist[i+1][1], mylist[i+1][2], mylist[i+1][3], chr(12288)))
 
 
 def main():
