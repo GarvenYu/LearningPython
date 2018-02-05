@@ -46,11 +46,12 @@ def extract_html_info(html, mylist):
     for tr in tr_list:
         data_list = []
         for td in tr.children:  # 遍历tr的子节点，取出前四个值
-            if td.string != '\n':
-                data_list.append(td.string)
-            if len(data_list) == 4:
-                mylist.append(data_list)
-                break
+            for td_child in td.children:
+                if td_child.string != '\n':
+                    data_list.append(td_child.string)
+                if len(data_list) == 4:
+                    mylist.append(data_list)
+                    break
 
 
 def print_info_list(mylist, num=30):
@@ -60,10 +61,11 @@ def print_info_list(mylist, num=30):
     :param num: 打印数量
     :return: None
     """
-    template = '{0:^10}\t{1:{4}^10}\t{2:^10}\t{3:^10}'
-    print(template.format(mylist[0][0], mylist[0][1], mylist[0][2], mylist[0][3], chr(12288)))
+    template_title = '{0:^10}\t{1:{4}^10}\t{2:^10}\t{3:^10}'
+    print(template_title.format(mylist[0][0], mylist[0][1], mylist[0][2], mylist[0][3], chr(12288)))
+    template_content = '{0:^10}\t{1:{4}^10}\t{2:^10}\t{3:^10}'
     for i in range(num):
-        print(template.format(mylist[i+1][0], mylist[i+1][1], mylist[i+1][2], mylist[i+1][3], chr(12288)))
+        print(template_content.format(mylist[i+1][0], mylist[i+1][1], mylist[i+1][2], mylist[i+1][3], chr(12288)))
 
 
 def main():
