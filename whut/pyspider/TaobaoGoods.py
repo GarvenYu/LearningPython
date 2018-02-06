@@ -35,12 +35,19 @@ def parse_html_text(text, infolist):
     return infolist
 
 
+def print_info_list(infolist):
+    count = 0
+    for info in infolist:
+        count += 1
+        print(str(count)+'\t'+info)
+
+
 def main():
     mylist = []
     url = 'https://s.taobao.com/search?q=手机'
     text = get_url_resource(url)
     info_list = parse_html_text(text, mylist)
-    print(info_list)
+    print_info_list(info_list)
 
 
 main()
