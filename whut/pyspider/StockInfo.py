@@ -40,7 +40,6 @@ def get_url_resource(url):
             stock_list.append(stock_num)
         except:
             continue
-    print(stock_list)
     return stock_list
 
 
@@ -49,28 +48,34 @@ def get_stock_info(stock_list, stock_info_url, file_path):
     根据股票编号获取每只股票的详情
     :param stock_list: 股票编号列表
     :param stock_info_url: 股票详情链接
-    :param file_path:本地文件路径
-    :return: list
+    :param file_path: 文件路径
     """
-    info_list = []
-    try:
-        for stock_num in stock_list:
+    count = 0
+    for stock_num in stock_list:
+        try:
             info_dict = {}
             url = stock_info_url+stock_num+'.html'
             html = request_template(url)
             bs = BeautifulSoup(html, 'html.parser')
-            stock_name = bs.find('a', attrs={'class': 'bets-name'}).text.split(' ')[0] ---
+            stock_name = bs.find('a', attrs={'class': 'bets-name'}).text.split()[0]
             info_title = bs.find_all('dt')
             info_data = bs.find_all('dd')
-            for i in range(len(info_title)):
-                key = info_title[i].string ---
-                value = info_data[i].string
-                info_dict[key] = value
             info_dict[stock_num] = stock_name
-            info_list.append(info_dict)
-        return info_list
-    except:
-        print('ERROR')
+            for i in range(len(info_title)):
+                key = info_title[i].string
+                if isinstance(key, str):
+                        value = info_data[i].string
+                        if value != '--':
+                            info_dict[key] = value
+            with open(file_path, 'w', encoding='UTF-8') as f:
+                f.write(str(info_dict) + '\n')
+                count = count + 1
+                print("\r当前进度: {:.2f}%".format(count * 100 / len(stock_list)), end="")
+            # print(info_list)
+        except:
+                continue
+                count = count + 1
+                print("\r当前进度: {:.2f}%".format(count * 100 / len(stock_list)), end="")
 
 
 def main():
@@ -78,9 +83,7 @@ def main():
     stock_info_url = 'https://gupiao.baidu.com/stock/'
     file_path = os.path.join(os.path.abspath('.'), 'stock_info.txt')
     stock_list = get_url_resource(stock_list_url)
-    info_list = get_stock_info(stock_list, stock_info_url, file_path)
-    for i in info_list:
-        print(info_list[i]+'\n')
+    get_stock_info(stock_list, stock_info_url, file_path)
 
 
 main()
