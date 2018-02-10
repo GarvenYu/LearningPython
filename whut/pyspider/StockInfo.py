@@ -67,7 +67,7 @@ def get_stock_info(stock_list, stock_info_url, file_path):
                         value = info_data[i].string
                         if value != '--':
                             info_dict[key] = value
-            with open(file_path, 'w', encoding='UTF-8') as f:
+            with open(file_path, 'a', encoding='UTF-8') as f:
                 f.write(str(info_dict) + '\n')
                 count = count + 1
                 print("\r当前进度: {:.2f}%".format(count * 100 / len(stock_list)), end="")
