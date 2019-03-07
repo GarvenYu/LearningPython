@@ -19,7 +19,7 @@ def get_pic(url):
     if not os.path.exists(root_path):
         os.mkdir(root_path)
     if not os.path.exists(file_path):
-         try:
+        try:
             header = {'User-Agent': "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36",
                       'Referer': url,
                       'Host': 'img3.doubanio.com'
@@ -30,8 +30,8 @@ def get_pic(url):
             r.encoding = 'UTF-8'
             with open(file_path, 'wb') as f:
                 f.write(r.content)
-         except:
-             print('捕获异常')
+        except:
+            print('捕获异常')
     else:
         print('文件已存在')
 
